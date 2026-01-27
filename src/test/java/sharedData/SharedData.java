@@ -13,6 +13,7 @@ public class SharedData {
     private WebDriver driver;
     private String testName;
 
+//as spera ca merge acum
 
     // mecanism care sa deschida browserul
     @BeforeMethod
