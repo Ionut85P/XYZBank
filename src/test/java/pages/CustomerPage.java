@@ -1,76 +1,77 @@
 package pages;
 
+import models.CustomerModel;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sharedData.SharedData;
+import utils.LogUtility;
 
 import java.util.List;
 
-public class CustomerPage {
-    public WebDriver driver;
+public class CustomerPage extends  BasePage {
 
-    public CustomerPage (WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-    @FindBy (xpath = "//input[@placeholder='First Name']")
-    public WebElement firstNameElement;
+    @FindBy(xpath = "//input[@placeholder='First Name']")
+    private WebElement firstNameElement;
 
     @FindBy(xpath = "//input[@placeholder='Last Name']")
-    public WebElement lastNameElement;
+    private WebElement lastNameElement;
 
-    @FindBy (xpath = "//input[@placeholder='Post Code']")
-    public WebElement postCodeElement;
+    @FindBy(xpath = "//input[@placeholder='Post Code']")
+    private WebElement postCodeElement;
 
-    @FindBy(xpath = "//button[@type='submit']")
-    public WebElement submitCustomerElement;
+    @FindBy(xpath = "//button[@class='btn btn-default']")
+    private WebElement submitCustomerElement;
 
     @FindBy(xpath = "//button[@ng-click='openAccount()']")
-    public WebElement openAccountElement;
+    private WebElement openAccountElement;
 
-    public void createCustomerProcess(String firstNameValue, String lastNameValue, String postCodeValue){
+    public CustomerPage(WebDriver driver) {
+        super(driver);
+    }
 
-        firstNameElement.sendKeys(firstNameValue);
+    public void createCustomerProcess(CustomerModel testData) {
+        firstNameElement.sendKeys(testData.getFirstNameValue());
+        LogUtility.infoLog("The user fills first name field with value: " + testData.getFirstNameValue());
 
-        lastNameElement.sendKeys(lastNameValue);
+        lastNameElement.sendKeys(testData.getLastNameValue());
+        LogUtility.infoLog("The user fills last name field with value: " + testData.getLastNameValue());
 
-        postCodeElement.sendKeys(postCodeValue);
+        postCodeElement.sendKeys(testData.getPostCodeValue());
+        LogUtility.infoLog("The user fills post code field with value: " + testData.getPostCodeValue());
 
         submitCustomerElement.click();
+        LogUtility.infoLog("The user clicks on submit button");
 
-        Alert costumerAlert = driver.switchTo().alert();
-        String costumerAlertText = costumerAlert.getText();
-
-        System.out.println(costumerAlertText);
-        costumerAlert.accept();
-
+        Alert customerAlert = driver.switchTo().alert();
+        String customerAlertText = customerAlert.getText();
+        System.out.println(customerAlertText);
+        customerAlert.accept();
+        LogUtility.infoLog("The user accepts the alert with message: " + customerAlertText);
     }
-    public void createCustomersProcess(List<String> firstNameValueList, List<String> lastNameValueList, List<String>postCodeValueList){
-        int index = 0;
-        while (index<firstNameValueList.size()){
 
-            firstNameElement.sendKeys(firstNameValueList.get(index));
-
-            lastNameElement.sendKeys(lastNameValueList.get(index));
-
-            postCodeElement.sendKeys(postCodeValueList.get(index));
-
+    public void createCustomersProcess(List<String> firstNameValueList, List<String> lastNameValueList, List<String> postCodeValueList){
+        int i = 0;
+        while (i<firstNameValueList.size()){
+            firstNameElement.sendKeys(firstNameValueList.get(i));
+            lastNameElement.sendKeys(lastNameValueList.get(i));
+            postCodeElement.sendKeys(postCodeValueList.get(i));
             submitCustomerElement.click();
 
-            Alert costumerAlert = driver.switchTo().alert();
-            String costumerAlertText = costumerAlert.getText();
-
-            System.out.println(costumerAlertText);
-            costumerAlert.accept();
-            index++;
-
+            Alert customerAlert = driver.switchTo().alert();
+            String customerAlertText = customerAlert.getText();
+            System.out.println(customerAlertText);
+            customerAlert.accept();
+            i++;
         }
 
     }
-    public void openAccount(){
+
+    public void openAccount() {
         openAccountElement.click();
     }
+
 }

@@ -1,51 +1,48 @@
 package pages;
 
+import models.CustomerModel;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-public class AccountPage {
-    public WebDriver driver;
-
-    public AccountPage (WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
+public class AccountPage extends  BasePage {
     @FindBy(id = "userSelect")
-    public WebElement customerNameElement;
-    @FindBy(id = "currency")
-    public WebElement currencyElement;
-    @FindBy(xpath = "//button[@type ='submit']")
-    public WebElement processButton;
-    @FindBy(xpath = "//button[@ng-click='showCust()']")
-    public WebElement customerElement;
+    private WebElement customerNameElement;
 
-    public void createAccountProcess(String fullName, String currencyValue){
+    @FindBy(id = "currency")
+    private WebElement currencyElement;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    private WebElement processButtonElement;
+
+    @FindBy(xpath = "//button[@ng-click='showCust()']")
+    private WebElement customersElement;
+
+    public AccountPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public void createAccountProcess(CustomerModel testData){
         Select customerSelect = new Select(customerNameElement);
-        customerSelect.selectByVisibleText(fullName);
+        customerSelect.selectByVisibleText(testData.getFullNameValue());
 
         Select currencySelect = new Select(currencyElement);
-        currencySelect.selectByVisibleText(currencyValue);
+        currencySelect.selectByVisibleText(testData.getCurrencyValue());
 
-
-        processButton.click();
+        processButtonElement.click();
 
         Alert accountAlert = driver.switchTo().alert();
         String accountAlertText = accountAlert.getText();
         System.out.println(accountAlertText);
-        String [] accountsArray = accountAlertText.split(":");
+        String[] accountsArray = accountAlertText.split(":");
         String accountNumber = accountsArray[1];
         System.out.println(accountsArray[1]);
         accountAlert.accept();
-
     }
 
-    public void goToCustomers(){
-        customerElement.click();
+    public void openCustomersPage(){
+        customersElement.click();
     }
-
 }

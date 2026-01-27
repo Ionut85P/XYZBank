@@ -4,21 +4,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.LogUtility;
 
-public class LoginPage {
-    public WebDriver driver;
+public class LoginPage extends BasePage {
+
+
+    @FindBy(xpath = "//button[text()='Bank Manager Login']")
+    private WebElement bankManagerElement;
 
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
-
-    @FindBy(xpath = "//button[normalize-space()='Bank Manager Login']")
-    public WebElement bankManagerElement;
 
     public void loginBankManager(){
         bankManagerElement.click();
-
+        LogUtility.infoLog("The user clicked on bank manager button");
     }
 
 }

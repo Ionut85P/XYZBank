@@ -1,0 +1,25 @@
+{
+[
+  {
+    "firstNameValue": "Ioan",
+    "lastNameValue": "Popaluca",
+    "postCodeValue": "507028",
+    "currencyValue" : "Dollar",
+    "fullNameValue" : "Ioan Popaluca"
+  },
+  {
+    "firstNameValue": "Ioan1",
+    "lastNameValue": "Popaluca1",
+    "postCodeValue": "507029",
+    "currencyValue" : "Dollar1",
+    "fullNameValue" : "Ioan Popaluca1"
+  },
+  {
+    "firstNameValue": "Ioan2",
+    "lastNameValue": "Popaluca2",
+    "postCodeValue": "507027",
+    "currencyValue" : "Dollar2",
+    "fullNameValue" : "Ioan Popaluca2"
+  }
+]
+}
