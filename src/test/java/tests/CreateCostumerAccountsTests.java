@@ -14,6 +14,7 @@ import java.util.List;
 
 public class CreateCostumerAccountsTests extends SharedData {
 //    public WebDriver driver;
+    // private
 
     @Test
 
