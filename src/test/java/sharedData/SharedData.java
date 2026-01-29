@@ -24,7 +24,7 @@ public class SharedData {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
 
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
         driver.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
